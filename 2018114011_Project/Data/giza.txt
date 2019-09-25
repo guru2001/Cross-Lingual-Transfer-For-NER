@@ -1,0 +1,14 @@
+In GIZA++-v2 directory
+./plain2snt.out [source_language_corpus] [target_language_corpus]
+
+In mkcls directory
+./mkcls -p[source_language_corpus] -V[source_language_corpus].vcb.classes
+
+./mkcls -p[target_language_corpus] -V[target_language_corpus].vcb.classes
+
+In GIZA++-v2 directory
+
+./GIZA++ -m1 -[numberofiterations=50 in my case] -S [target_language_corpus].vcb -T [source_language_corpus].vcb -C [target_language_corpus]_[source_language_corpus].snt -o [prefix] -outputpath [output_folder]
+
+Output_file=[prefix].actual.ti.final
+

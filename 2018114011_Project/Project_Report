@@ -1,0 +1,61 @@
+CROSS LINGUAL TRANSFER FOR NAMED ENTITY RECOGNITION:-
+Named Entity Recognition:
+NER is a task in Information Extraction consisting in identifying and classifying just some types of information elements ,called Named Entities (NE) for example person , Location , Organisation , Association , Facilities , Material , Time , Date , Designation etc.
+
+Crosslingual transfer:
+Cross lingual transfer (i.e. transfer from the mother tongue or any other previously learned language) in foreign language learning
+Here Source is Hindi and target is English .
+Considered word level mapping only
+It is important to recognize NER cause
+->The information transfer of sentences would increase. 
+It helps us in -
+->Efficient search engines.
+->Giving better results for news providers regarding about which person or organisation is news about.
+
+DATA USED:
+->Raw parallel corpus of 4316 lines English and Hindi were taken to transfer features from Hindi to English as data based on judiciary NER.
+(english and hindi)
+->A Hindi file with the mapping of NER or not an NER(o) test_file
+(judicial-NER-final.txt)
+->Took a parallel corpus of 37,729 lines of English and Hindi to find more accurately the word alignments for better performance of NER. 
+(training.hi-en.en and training.hi-en.hi)
+
+USE OF GIZA++:
+->GIZA++ is a tool used to find word alignments.
+->Used GIZA++ to find the word alignment between English and Hindi of the big corpus data for more accuracy in alignments.Some of the alignments
+तुक्रिया Tukriya		झीलें lakes	   संगमर्मर marble	सफलता success
+पोल Pol			राहें paths	ब्रह्मांडीय cosmic	पशुओं animals
+सम्भवत Probable	247 247	(२) (2)	विनाश्न Vinashn
+->Made a dictionary with the Hindi word as Key and value as English word mapped.Only considered alignments having greater than 0.6.
+->Found the corresponding English train_data by using the dictionary.(1.py dictionary - d)
+(Commands in giza.txt)
+
+CRF:-
+->CRF is a statistical model used for segmenting sequential data.
+RUNNING CRF ON HINDI DATA:
+Created a template_file considering only the present word
+Template file: template_hin
+Training Data has 2345 words starting of the NER mapping file.
+Testing Data has 12470 words ending of the NER mapping file.
+ACCURACY : 95.87% (report=eval-report-hin-ner-test and crf_output in pred-hin-ner and model genrated in model-hin-ner)
+(commands in crf.txt)
+
+RUNNING CRF ON ENGLISH DATA:
+->Created template ,considering current,next,next’s next and previous words.
+Template_file(template_hin)
+->Training data has 12470 words obtained by getting the values from corresponding keys obtained from train-ner-hin if there is not present in dictionary the value is taken as NULL in train-ner-eng.
+->Testing data has 2345 words obtained by translating(GOOGLE TRANSLATE) test-ner-hin in test-ner-eng.
+ACCURACY - 77.53% (report=eval-report-eng-ner-test and crf_output in pred-eng-ner and model generated in model-eng-ner)
+
+ERROR ANALYSIS(error.txt):
+->The alignments are correct up to certain accuracy so the training data is not 100% correct.
+->It is not recognizing the Named Entities separated by spaces.
+->Failed to recognize many numbers and years.
+
+IMPROVING ACCURACY:
+->If number of iterations in GIZA++ to a certain level to obtain maximum accuracy is increased then the word alignments would be better and hence the train-ner-eng would be better crosslingual transfer.
+->If we include additional features in template file accuracy may increase.
+
+Done by,
+R.Guru Ravi Shanker 
+2018114011
